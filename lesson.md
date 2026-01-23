@@ -26,7 +26,7 @@ For this DevOps module, we will use a **new Spring Boot DevOps demo project** th
 
 Containerization is a software deployment process that bundles an application's code with all the files and libraries it needs to run on any infrastructure. 
 
-Traditionally, to run any application on your computer, you had to install the version that matched your machine’s operating system.
+Traditionally, to run any application on your computer, you had to install the version that matched your machine's operating system.
 
 ### What are Containers?
 
@@ -112,7 +112,7 @@ You should **continue working on the same project** throughout the DevOps module
 
 Create a new Spring Boot project locally with:
 
-- Java 17
+- Java 21
 - Maven
 - Dependency: Spring Web
 - Packaging: Jar
@@ -153,7 +153,7 @@ Step 2: Fill the file content with the following:
 *Note to the instructor: please walk the learners through each line of instruction as you type it out*
 
 ```dockerfile
-FROM eclipse-temurin:17-jdk-alpine
+FROM eclipse-temurin:21-jdk-alpine
 
 WORKDIR /app
 
@@ -247,14 +247,14 @@ Multi-stage builds are useful in maintaining a single Dockerfile that contains s
 With multi-stage builds, multiple `FROM` statements can be used in the Dockerfile. Each FROM instruction can use a different base image, and each of them begins a new stage of the build. Artifacts from one stage can be copied to another, building for the final image.
 
 ```Dockerfile
-FROM maven:3.9.6-eclipse-temurin-17 AS build
+FROM maven:3.9.6-eclipse-temurin-21 AS build
 ENV PORT=8081
 COPY . /app
 WORKDIR /app
 RUN mvn clean install -DskipTests
 
 # Second stage: create a slim image
-FROM eclipse-temurin:17
+FROM eclipse-temurin:21
 ENV PORT=8081
 COPY --from=build /app/target/*.jar /app.jar
 ENTRYPOINT ["java", "-jar", "/app.jar"]
@@ -266,7 +266,7 @@ By default, the stages aren't named, and can refer to by their index, starting w
 
 ```Dockerfile
 # The first instruction is named "build"
-FROM maven:3.9.6-eclipse-temurin-17 AS build
+FROM maven:3.9.6-eclipse-temurin-21 AS build
 ```
 
 After creating the name (also called alias) for the build, it can be referred to by the other stages using its name
