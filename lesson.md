@@ -247,7 +247,7 @@ Multi-stage builds are useful in maintaining a single Dockerfile that contains s
 With multi-stage builds, multiple `FROM` statements can be used in the Dockerfile. Each FROM instruction can use a different base image, and each of them begins a new stage of the build. Artifacts from one stage can be copied to another, building for the final image.
 
 ```Dockerfile
-FROM maven:3.9.6-eclipse-temurin-21 AS build
+FROM maven:3.9-eclipse-temurin-21 AS build
 ENV PORT=8081
 COPY . /app
 WORKDIR /app
@@ -266,7 +266,7 @@ By default, the stages aren't named, and can refer to by their index, starting w
 
 ```Dockerfile
 # The first instruction is named "build"
-FROM maven:3.9.6-eclipse-temurin-21 AS build
+FROM maven:3.9-eclipse-temurin-21 AS build
 ```
 
 After creating the name (also called alias) for the build, it can be referred to by the other stages using its name
