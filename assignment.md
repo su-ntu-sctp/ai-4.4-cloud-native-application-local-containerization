@@ -1,34 +1,77 @@
 # Assignment (Optional)
 
 ## Brief
-[1–2 sentences: what to build and the expected outcome.]
 
-## Tasks
-- [Task 1]
-- [Task 2]
-- [Optional extension]
+Practice Docker containerization by creating a Dockerfile and building Docker images for a Spring Boot application.
 
-## Setup
-- [Starter/template link if any]
-- [Install & run steps (3–5 lines)]
-- [Sample I/O or endpoints]
+1. **Create and Run a Simple Docker Container**
+   - Use your existing Spring Boot project (e.g., devops-demo or any project with a REST endpoint)
+   - Ensure your project builds successfully with Maven:
+```bash
+     mvn clean package -DskipTests
+```
+   - Create a `Dockerfile` in the project root with the following:
+     - Use `eclipse-temurin:21-jdk-alpine` as the base image
+     - Set working directory to `/app`
+     - Set environment variable `PORT=8080`
+     - Copy the JAR file from `target/` to `app.jar`
+     - Expose port 8080
+     - Add CMD instruction to run the JAR file with `java -jar app.jar`
+   - Create a `.dockerignore` file to exclude:
+     - `target/classes/`
+     - `target/test-classes/`
+     - `.git`
+     - `.gitignore`
+   - Build the Docker image:
+```bash
+     docker build -t myapp .
+```
+   - Run the container:
+```bash
+     docker run -d -p 8080:8080 myapp
+```
+   - Test your application by accessing the endpoint in your browser
+   - Verify the container is running with `docker ps`
+   - Take a screenshot showing:
+     - Your running container (`docker ps` output)
+     - Your application responding successfully in the browser
+   - Stop and remove the container when done
 
-## Deliverables (if submitting)
-- GitHub repo URL
-- README (setup, notes, screenshots)
-- Demo link (optional)
+2. **Implement Multi-stage Docker Build**
+   - Update your Dockerfile to use multi-stage builds:
+     - **First stage (build stage)**:
+       - Use `maven:3.9-eclipse-temurin-21` as base image
+       - Name this stage "build" using `AS build`
+       - Set working directory to `/app`
+       - Copy all project files
+       - Run `mvn clean install -DskipTests`
+     - **Second stage (runtime stage)**:
+       - Use `eclipse-temurin:21-jdk-alpine` as base image
+       - Set environment variable `PORT=8080`
+       - Copy the JAR file from the build stage using `COPY --from=build`
+       - Expose port 8080
+       - Add ENTRYPOINT instruction to run the JAR file
+   - Build the multi-stage Docker image (no need to run `mvn package` separately):
+```bash
+     docker build -t myapp-multistage .
+```
+   - Run the container:
+```bash
+     docker run -d -p 8080:8080 myapp-multistage
+```
+   - View the container logs to verify it started successfully:
+```bash
+     docker logs <container-id>
+```
+   - Test the application endpoint
+   - Write a brief explanation (3-4 sentences) describing:
+     - The difference between single-stage and multi-stage builds
+     - The benefit of using multi-stage builds
+     - What happens in each stage of your Dockerfile
 
-## AI & Tools
-- Tools: [ChatGPT/Copilot/etc.]
-- Assisted with: [tests/docs/code]
-- Validation: [tests/manual checks]
-- Attribution: [links to adapted sources]
+## Submission (Optional)
 
-## Collaboration
-- Discuss ideas, submit your own work; credit classmates/sources.
-
-## Submission (optional)
-- Submit repo URL to NTU Blackboard.
+- Submit the URL of the GitHub Repository that contains your work.
 
 ## References
 - Java: https://docs.oracle.com/javase/
