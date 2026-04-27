@@ -1,7 +1,6 @@
 # Lesson 4.4: Cloud Native Application - Local Containerization
 
 **Module 4: DevSecOps**  
-**Duration:** 3 hours  
 **Level:** Beginner
 
 ---
@@ -34,9 +33,9 @@ This lesson introduces containerization, which will be used throughout the entir
 
 ---
 
-## Part 1 - What is Containerization (20 minutes)
+## Part 1 - What is Containerization
 
-Containerization is a software deployment process that bundles an application's code with all the files and libraries it needs to run on any infrastructure. 
+Containerization is a software deployment process that bundles an application's code with all the files and libraries it needs to run on any infrastructure.
 
 Traditionally, to run any application on your computer, you had to install the version that matched your machine's operating system.
 
@@ -70,7 +69,7 @@ Containerization can provide these benefits for applications:
 
 ### Containerization Use Cases
 
-Containerization can be used for different use cases, here are some of them: 
+Containerization can be used for different use cases, here are some of them:
 
 1. Migration from Monolithic applications to Microservices
 2. Setting up and standardization of development environments
@@ -80,7 +79,21 @@ Containerization can be used for different use cases, here are some of them:
 
 ---
 
-## Part 2 - Docker and Dockerfile (40 minutes)
+### 🏃 Activity 1 — Containers in the Real World (10 min)
+
+Think about the following scenario:
+
+> A developer builds an application on their laptop. It works perfectly. They send it to a colleague — it doesn't run. The colleague has a different OS, different Java version, and different environment variables.
+
+Discuss the following questions with a partner or as a group:
+
+1. How would containerization solve this problem?
+2. Can you think of a real-world situation where running the same software consistently across multiple machines is critical?
+3. From the use cases listed above, which one do you think is most relevant to a DevOps team? Why?
+
+---
+
+## Part 2 - Docker and Dockerfile
 
 For containerization, we will be using Docker.
 
@@ -187,17 +200,17 @@ Take 5 to 10 minutes to allow learners to read through, then invite questions.
 
 ---
 
-## Part 3 - Creation of Images and Running Containers (50 minutes)
+## Part 3 - Creation of Images and Running Containers
 
 ### Images and Containers
 
 **Images** and **Containers** are some of the objects that Docker provides:
 
-**Image** - An image is a read-only template with instructions for creating a Docker container. Often, an image is based on another image, with some additional customization. 
+**Image** - An image is a read-only template with instructions for creating a Docker container. Often, an image is based on another image, with some additional customization.
 
 To build your own image, you create a Dockerfile with a simple syntax for defining the steps needed to create the image and run it. Each instruction in a Dockerfile creates a layer in the image.
 
-**Container** - A container is a runnable instance of an image. You can create, start, stop, move, or delete a container using the Docker API or CLI. 
+**Container** - A container is a runnable instance of an image. You can create, start, stop, move, or delete a container using the Docker API or CLI.
 
 A container is defined by its image as well as any configuration options you provide to it when you create or start it. When a container is removed, any changes to its state that aren't stored in persistent storage disappear.
 
@@ -329,7 +342,7 @@ DevOps demo application is running!
 
 ---
 
-### Activity: Stop and Remove Container (10 minutes)
+### Activity 2: Stop and Remove Container (10 minutes)
 
 Practice managing Docker containers with these commands:
 
@@ -379,7 +392,7 @@ docker image rm mysampleapp
 
 ---
 
-## Part 4 - Multi-stage Builds (40 minutes)
+## Part 4 - Multi-stage Builds
 
 Multi-stage builds are useful in maintaining a single Dockerfile that contains stages of builds. An example of this in Java is using a Maven build for the first stage and using that build to create a `.jar` file.
 
@@ -566,20 +579,7 @@ Then access: `http://localhost:8081/hello`
 
 ## Additional Resources
 
-### Docker Documentation
 - [Docker Overview](https://docs.docker.com/get-started/overview/)
 - [Dockerfile Reference](https://docs.docker.com/engine/reference/builder/)
 - [Multi-stage Builds](https://docs.docker.com/build/building/multi-stage/)
 - [Docker CLI Commands](https://docs.docker.com/engine/reference/commandline/cli/)
-
-### Video Tutorials
-- [Docker Tutorial for Beginners](https://www.youtube.com/results?search_query=docker+tutorial+beginners)
-- [Dockerizing Spring Boot Application](https://www.youtube.com/results?search_query=docker+spring+boot+tutorial)
-
----
-
-**End of Lesson 4.4**
-
-**Congratulations!** You've successfully containerized your Spring Boot application using Docker. This is a fundamental DevOps skill that you'll use throughout the remaining lessons! 🎉
-
-**Next Lesson:** Lesson 4.5 - Docker Compose (Multi-container Applications)
