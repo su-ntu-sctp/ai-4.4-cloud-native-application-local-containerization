@@ -1,10 +1,5 @@
 # Lesson 4.4: Cloud Native Application - Local Containerization
 
-**Module 4: DevSecOps**  
-**Level:** Beginner
-
----
-
 ## Learning Objectives
 
 By the end of this lesson, you will be able to:
