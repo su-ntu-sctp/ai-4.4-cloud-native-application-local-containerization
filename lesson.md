@@ -1,5 +1,9 @@
 # Lesson 4.4: Cloud Native Application - Local Containerization
 
+**Module 4: DevSecOps**  
+
+---
+
 ## Learning Objectives
 
 By the end of this lesson, you will be able to:
@@ -18,13 +22,88 @@ Before starting this lesson, ensure you have:
 - Java 21 (already installed)
 - Maven (already installed)
 - Docker Desktop installed and running
-- Your **devops-demo** Spring Boot project from Lesson 4.2
 
 ---
 
 ## Introduction
 
 This lesson introduces containerization, which will be used throughout the entire DevOps module. You'll learn to package your Spring Boot application into a Docker container that runs consistently across different environments.
+
+---
+
+## Step 0 - Create Your DevOps Demo Project
+
+Before we begin containerization, you need to create the **devops-demo** Spring Boot project. This is a simple project that you will reuse across every DevOps lesson in this module.
+
+### Step 1: Create the Project Using Spring Initializr
+
+1. Go to [https://start.spring.io](https://start.spring.io)
+2. Fill in the project details:
+   - **Project:** Maven
+   - **Language:** Java
+   - **Spring Boot:** 3.2.0
+   - **Group:** `com.example`
+   - **Artifact:** `devops-demo`
+   - **Name:** `devops-demo`
+   - **Package name:** `com.example.devopsdemo`
+   - **Packaging:** Jar
+   - **Java:** 21
+3. Under **Dependencies**, add:
+   - **Spring Web**
+4. Click **Generate** — this downloads a `.zip` file
+5. Extract the zip to a folder on your computer
+6. Open the project in VS Code
+
+---
+
+### Step 2: Create a Simple REST Controller
+
+Create a new file:
+```
+src/main/java/com/example/devopsdemo/controller/DemoController.java
+```
+
+Add this content:
+
+```java
+package com.example.devopsdemo.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class DemoController {
+
+    @GetMapping("/hello")
+    public String hello() {
+        return "DevOps demo application is running!";
+    }
+}
+```
+
+---
+
+### Step 3: Run and Verify Locally
+
+**Run the application:**
+```bash
+mvn spring-boot:run
+```
+
+**Test the endpoint:**
+
+Open your browser and go to: `http://localhost:8080/hello`
+
+**Expected response:**
+```
+DevOps demo application is running!
+```
+
+✅ **Your devops-demo project is ready!**
+
+Stop the application (`Ctrl+C`) before proceeding to the next part.
+
+---
 
 ---
 
@@ -126,7 +205,7 @@ For this DevOps module, you use **one Spring Boot DevOps demo project on your lo
 
 Make sure you have:
 
-1. Your **devops-demo** project from Lesson 4.2
+1. Your **devops-demo** project created in Step 0 above
 2. The `/hello` endpoint working
 3. Maven can build the project: `mvn clean package -DskipTests`
 
