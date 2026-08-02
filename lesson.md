@@ -472,6 +472,8 @@ Multi-stage builds are useful in maintaining a single Dockerfile that contains s
 
 With multi-stage builds, multiple `FROM` statements can be used in the Dockerfile. Each FROM instruction can use a different base image, and each of them begins a new stage of the build. Artifacts from one stage can be copied to another, building for the final image.
 
+> **Note:** Unlike Step 0 and Part 3, where you ran `mvn package` yourself before building the Docker image, a multi-stage build runs Maven *inside* Docker — so from this point on you no longer need to run `mvn package` manually before `docker build`.
+
 ### Multi-stage Dockerfile
 
 Replace your current Dockerfile content with this multi-stage version:
@@ -509,11 +511,6 @@ COPY --from=build /app/target/*.jar /app.jar
 
 ### Benefits of Multi-stage Builds
 
-**Smaller image size:**
-- First stage includes Maven + source code (large)
-- Second stage only includes JRE + JAR file (small)
-- Final image is ~70% smaller
-
 **Simpler workflow:**
 - Don't need to run `mvn package` separately
 - Just run `docker build` and everything happens automatically
@@ -526,7 +523,7 @@ COPY --from=build /app/target/*.jar /app.jar
 | Single-stage | `mvn package` | Copy JAR, create image | ~350MB |
 | Multi-stage | `docker build` | Maven build + create image | ~350MB |
 
-**Note:** Image sizes are similar because both use the same JDK base image. The benefit of multi-stage is the simplified workflow, not size reduction in this case.
+**Note:** Image sizes are similar because both use the same JDK base image (`eclipse-temurin:21-jdk-alpine`) in the final stage. The real benefit of multi-stage builds here is the simplified workflow — not a smaller image. (A smaller final image would require swapping the final stage's base image for a JRE-only image, such as `eclipse-temurin:21-jre-alpine`, since a JRE excludes the compiler and dev tooling a JDK ships with.)
 
 ---
 
