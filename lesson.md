@@ -532,8 +532,8 @@ COPY --from=build /app/target/*.jar /app.jar
 
 | Approach | You run | Docker runs | Image size |
 |----------|---------|-------------|------------|
-| Single-stage | `mvn package` | Copy JAR, create image | ~350MB |
-| Multi-stage | `docker build` | Maven build + create image | ~350MB |
+| Single-stage | `mvn package` + `docker build` | Copy JAR file, create image | ~350MB |
+| Multi-stage | `docker build` only | Maven build, copy JAR file, create image | ~350MB |
 
 **Note:** Image sizes are similar because both use the same JDK base image (`eclipse-temurin:21-jdk-alpine`) in the final stage. The real benefit of multi-stage builds here is the simplified workflow — not a smaller image. (A smaller final image would require swapping the final stage's base image for a JRE-only image, such as `eclipse-temurin:21-jre-alpine`, since a JRE excludes the compiler and dev tooling a JDK ships with.)
 
