@@ -391,6 +391,18 @@ This long string is your **CONTAINER ID**.
 
 > The `-p 8080:8080` option binds the host's port `8080` to the container's port `8080`. If you use `-p 8081:8080`, you bind host's port `8081` to container's port `8080`, and you'd access it at `http://localhost:8081/hello`.
 
+**Best practices:**
+
+Notice that your container is given a random name. You can assign a custom container name using the `--name` flag. In the following example, we use the long form `--detach` and `--publish` flags. We also use `\` to improve readability. 
+
+```sh
+docker run \
+  --detach \
+  --name app \
+  --publish 8080:8080 \
+  mysampleapp
+```
+
 **Step 7:** Verify container is running
 
 ```bash
